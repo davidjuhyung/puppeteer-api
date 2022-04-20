@@ -5,7 +5,7 @@ Why do you need a Puppeteer Web API?
   - https://github.com/nguyenkaos/puppeteer-heroku-buildpack/issues/1
   - https://stackoverflow.com/questions/71299185/heroku-error-compiled-slug-size-is-too-large-with-puppeteer
 - Even if you managed to fit it under 500MB, the performance of the application is severely degraded with the "out of memory" error throwing every 5 seconds.
-- There have not been any proposed olutions other than opting out to use a premium sofrware. Hence, I have made a dedicated Heroku server that does exactly what the Puppeteer library does, except now you do not need to install Puppeteer on your machine.
+- There have not been any proposed solutions other than opting out to use a premium sofrware. Hence, I have made a dedicated Heroku server that does exactly what the Puppeteer library does, except now you do not need to install Puppeteer on your machine.
 
 <br />
 
