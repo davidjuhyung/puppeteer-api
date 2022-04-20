@@ -1,6 +1,6 @@
 import { Server } from "restify"
-import { initRenderRoutes } from "./render"
+import { initScreenshotRoutes } from "./screenshot"
 
 export const initRoutes = (server: Server) => {
-  initRenderRoutes(server)
+  initScreenshotRoutes(server)
 }
