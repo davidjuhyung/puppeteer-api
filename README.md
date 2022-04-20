@@ -11,16 +11,16 @@ Why do you need a Puppeteer Web API?
 
 ## To get a screenshot of an HTML page
 
-### POST https://puppeteer-web-api.herokuapp.com/render 
+### POST https://puppeteer-web-api.herokuapp.com/screenshot
 ### Request Body Parameters
 
 | Parameter     | Type          | Required  | Description                                   |Default Value |
 | ------------- |---------------| --------- | ----------------------------------------------|--------------------|
 | html          | string        |   Yes     | The stringified HTML                          |  n/a               |
-| width         | number        |   Yes     | The width of HTML page that will be rendered  |    n/a             |
-| height        | number        |   Yes     | The height of HTML page that will be rendered |   n/a              |
-| x             | number        |   No      | The x position of the left corner of HTML page that will be rendered | 0 |
-| y             | number        |   No      | The y position of the left corner of HTML page that will be rendered | 0 |
+| width         | number        |   Yes     | The width of screenshot  |    n/a             |
+| height        | number        |   Yes     | The height of screenshot |   n/a              |
+| x             | number        |   No      | The x position of top-left corner of screenshot | 0 |
+| y             | number        |   No      | The y position of top-left corner of screenshot | 0 |
 
 ### Response
 Buffer
@@ -48,7 +48,7 @@ const html = `
   </html>
 `
 try {
-  const res = await axios.post('https://puppeteer-web-api.herokuapp.com/render'. {
+  const res = await axios.post('https://puppeteer-web-api.herokuapp.com/screenshot'. {
     html,
     width: 100,
     height: 50
