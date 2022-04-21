@@ -2,6 +2,7 @@ import { Next, Request, Response } from "restify"
 import { myPuppeteer } from "../../puppeteer"
 
 export const screenshotHTML = async (req: Request, res: Response, next: Next) => {
+  console.log('requested received')
   const html = req.body.html
   const rWidth = req.body.width
   const rHeight = req.body.height
@@ -21,6 +22,9 @@ export const screenshotHTML = async (req: Request, res: Response, next: Next) =>
   await page.setContent(html)
   await page.evaluateHandle('document.fonts.ready')
 
+  console.log('content set')
+
+
   const bodyHandle = await page.$('body');
   const { width, height } = await bodyHandle.boundingBox()
   const screenshot = await page.screenshot({
@@ -31,6 +35,9 @@ export const screenshotHTML = async (req: Request, res: Response, next: Next) =>
       height: height - clipY
     }
   }) as Buffer
+
+  console.log('screenshot done')
+
 
   res.send(screenshot)
 
