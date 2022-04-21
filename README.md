@@ -17,8 +17,8 @@ Why do you need a Puppeteer Web API?
 | Parameter     | Type          | Required  | Description                                   |Default Value |
 | ------------- |---------------| --------- | ----------------------------------------------|--------------------|
 | html          | string        |   Yes     | The stringified HTML                          |  n/a               |
-| width         | number        |   Yes     | The width of screenshot  |    n/a             |
-| height        | number        |   Yes     | The height of screenshot |   n/a              |
+| width         | number        |   No      | The width of screenshot                       |  width of body     |  
+| height        | number        |   No      | The height of screenshot                      |  height of body    |
 | x             | number        |   No      | The x position of top-left corner of screenshot | 0 |
 | y             | number        |   No      | The y position of top-left corner of screenshot | 0 |
 
