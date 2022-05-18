@@ -66,7 +66,7 @@ try {
 
 ```
 
-## To get a pdf of an HTML page
+## To generate a PDF from HTML
 
 ### POST https://puppeteer-web-api.herokuapp.com/pdf
 ### Request Body Parameters
