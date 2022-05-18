@@ -1,45 +1,51 @@
-import { Next, Request, Response } from "restify"
+import { Next, Request, Response as ServerResponse } from "restify"
+import { InternalServerError } from "restify-errors"
+import { Response } from "../../consonants/response"
 import { myPuppeteer } from "../../puppeteer"
 
-export const screenshotHTML = async (req: Request, res: Response, next: Next) => {
-  console.log('requested received')
-  const html = req.body.html
-  const rWidth = req.body.width
-  const rHeight = req.body.height
-  const clipX = req.body.x || 0
-  const clipY = req.body.y || 0
-
-  const page = await myPuppeteer.browser.newPage()
-
-  if (rWidth && rHeight) {
-    await page.setViewport({
-      width: rWidth,
-      height: rHeight,
-      deviceScaleFactor: 2,
-    });
-  }
-
-  await page.setContent(html)
-  await page.evaluateHandle('document.fonts.ready')
-
-  console.log('content set')
+export const screenshotHTML = async (req: Request, serRes: ServerResponse, next: Next) => {
+  try {
+    const html = req.body.html || null
+    const rWidth = req.body.width || null
+    const rHeight = req.body.height || null
+    const clipX = req.body.x || 0
+    const clipY = req.body.y || 0
 
 
-  const bodyHandle = await page.$('body');
-  const { width, height } = await bodyHandle.boundingBox()
-  const screenshot = await page.screenshot({
-    clip: {
-      x: clipX,
-      y: clipY,
-      width: width - clipX,
-      height: height - clipY
+    if (!html || !rWidth || !rHeight) {
+      throw Error('You are missing the required parameter(s).')
     }
-  }) as Buffer
 
-  console.log('screenshot done')
+    const page = await myPuppeteer.browser.newPage()
 
+    await page.setViewport({
+      deviceScaleFactor: 2,
+      width: rWidth,
+      height: rHeight
+    })
 
-  res.send(screenshot)
+    await page.setContent(html)
+    await page.evaluateHandle('document.fonts.ready')
 
-  return next()
+    const bodyHandle = await page.$('body');
+    const { width, height } = await bodyHandle.boundingBox()
+    const screenshot = await page.screenshot({
+      clip: {
+        x: clipX,
+        y: clipY,
+        width: width - clipX,
+        height: height - clipY
+      },
+      path: 'test.png'
+    }) as Buffer
+
+    await page.close();
+
+    serRes.send(new Response<Buffer>(screenshot))
+
+    return next()
+  } catch (err) {
+    serRes.send(new Response<Buffer>(null, err.message))
+    return next(new InternalServerError(err));
+  }
 }

@@ -16,7 +16,7 @@ import { initRoutes } from './routes/v1';
   server.use(restify.plugins.acceptParser(server.acceptable))
   initRoutes(server)
   server.listen(process.env.PORT || 8080, () => {
-    console.log('listening ')
+    console.log('listening on ', process.env.PORT || 8080)
   })
 
   await myPuppeteer.launch()
