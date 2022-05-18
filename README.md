@@ -48,13 +48,73 @@ const html = `
   </html>
 `
 try {
-  const res = await axios.post('https://puppeteer-web-api.herokuapp.com/screenshot'. {
+  const res = (await axios.post('http://localhost:8080/screenshot', {
     html,
     width: 100,
-    height: 50
-  })
-  
+    height: 50,
+  })).data
+
+  if (res.errorMessage !== '') {
+    throw new Error(res.errorMessage)
+  }
+
   fs.writeFileSync('tmp.png', Buffer.from(res.data))
+
+} catch (err) {
+  console.log({err})
+}
+
+```
+
+## To get a pdf of an HTML page
+
+### POST https://puppeteer-web-api.herokuapp.com/pdf
+### Request Body Parameters
+
+| Parameter     | Type          | Required  | Description                                   |Default Value |
+| ------------- |---------------| --------- | ----------------------------------------------|--------------------|
+| html          | string        |   Yes     | The stringified HTML                          |  n/a               |
+
+
+### Response
+Buffer
+
+### Example
+```typescript
+const html = `
+  <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+    </head>
+    <body>
+     Hello
+    </body>
+    <style>
+      body {
+        width: 100px;
+        height: 50px;
+      }
+    </style>
+  </html>
+  
+  try {
+    const res = (await axios.post('http://localhost:8080/pdf', {
+      html
+    })).data
+    
+    if (res.errorMessage !== '') {
+      throw new Error(res.errorMessage)
+    }
+  
+    fs.writeFileSync('tmp.pdf', Buffer.from(res.data))
+  
+  } catch (err) {
+    console.log({err})
+  }
 
 } catch (err) {
   console.log({err})
