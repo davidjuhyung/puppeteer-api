@@ -1,0 +1,31 @@
+{
+  "name": "puppeteer-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "predevbuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "devbuild": "tsc",
+    "predev": "npm run devbuild",
+    "dev": "node .",
+    "prodbuild": "tsc",
+    "preprod": "npm run prodbuild",
+    "prod": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^17.0.25",
+    "@types/puppeteer": "^5.4.5",
+    "@types/restify": "^8.5.4",
+    "@types/restify-errors": "^4.3.4",
+    "puppeteer": "^13.6.0",
+    "restify": "^8.6.1",
+    "restify-errors": "^8.0.2",
+    "typescript": "^4.6.3"
+  },
+  "devDependencies": {
+    "tslint": "^6.1.3"
+  }
+}
